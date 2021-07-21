@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
   }
   res.send(`
         <p><a href="/json">see the JSON file</a></p>
-        <p><strong id="visit-no">Visit Number </strong> ${req.session.visitNo}</p>
+        <p><strong>Visit Number </strong> <span id="visit-no">${req.session.visitNo}</span></p>
         <p><strong>The cookie as seen in the headers: </strong> ${req.headers.cookie ? req.headers.cookie : "none yet"}</p>
         <p><strong>Does session exist: </strong> ${req.session ? "yes" : "no"}</p>
         <p><strong>Does myVariable exist: </strong> ${req.session.myVariable ? "yes" : "no"}</p>
