@@ -1,0 +1,32 @@
+services:
+  cypress:
+    image: cypress/included:7.7.0
+    tty: true  
+    depends_on:
+      - backend
+    entrypoint: "bash"
+    networks:
+      - backend-services
+    volumes:
+      - ./:/code
+    working_dir: /code
+    environment:
+      APP_URL: "backend:3000"
+  backend:
+    image: node:buster
+    healthcheck:
+      test: ['CMD', 'curl', '-f', 'http://localhost:3000']
+      interval: 2s
+      timeout: 2s
+      retries: 3
+      start_period: 60s
+    entrypoint: npm run start
+    networks:
+      - backend-services
+    volumes:
+      - ./:/code
+    working_dir: /code
+
+networks:
+  backend-services:
+    driver: bridge

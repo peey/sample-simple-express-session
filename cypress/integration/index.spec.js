@@ -1,6 +1,7 @@
 /// <reference types="cypress" />
 
-const URL = process.env.APP_URL?? "localhost:3000";
+//const URL = "http://localhost:3000";
+const URL = "http://backend:3000";
 
 describe('example to-do app', () => {
 
