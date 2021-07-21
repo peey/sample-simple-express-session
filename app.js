@@ -33,9 +33,12 @@ function expiryTimer(req) {
 
 // Routes
 app.get('/', (req, res) => {
-  
+  if (!req.session.visitNo) {
+    req.session.visitNo = 1;
+  }
   res.send(`
         <p><a href="/json">see the JSON file</a></p>
+        <p><strong id="visit-no">Visit Number </strong> ${req.session.visitNo}</p>
         <p><strong>The cookie as seen in the headers: </strong> ${req.headers.cookie ? req.headers.cookie : "none yet"}</p>
         <p><strong>Does session exist: </strong> ${req.session ? "yes" : "no"}</p>
         <p><strong>Does myVariable exist: </strong> ${req.session.myVariable ? "yes" : "no"}</p>
@@ -51,6 +54,8 @@ app.get('/', (req, res) => {
           <input type="submit" name="req" value="destroy-session">
         </form>
       `);
+  req.session.visitNo = req.session.visitNo + 1;
+  req.session.save();
 });
 
 app.get("/json", (req, res) => {
